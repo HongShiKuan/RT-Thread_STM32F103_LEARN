@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER, STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>.\applications;..\rt-thread-demo;.\drivers;.\Libraries\CMSIS\Device\ST\STM32F1xx\Include;.\Libraries\STM32F1xx_HAL_Driver\Inc;.\Libraries\CMSIS\Include;.\rt-thread\include;.\rt-thread\libcpu\arm\cortex-m3;.\rt-thread\libcpu\arm\common;.\rt-thread\components\drivers\include;.\rt-thread\components\finsh;.\rt-thread\components\libc\compilers\armlibc</IncludePath>
+              <IncludePath>.\applications;..\rt-thread-demo;.\drivers;.\Libraries\CMSIS\Device\ST\STM32F1xx\Include;.\Libraries\STM32F1xx_HAL_Driver\Inc;.\Libraries\CMSIS\Include;.\rt-thread\include;.\rt-thread\libcpu\arm\cortex-m3;.\rt-thread\libcpu\arm\common;.\rt-thread\components\drivers\include;.\rt-thread\components\finsh;.\rt-thread\components\libc\compilers\armlibc;.\rt-thread\components\drivers\include\drivers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -385,6 +385,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\applications\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\applications\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\applications\led.h</FilePath>
             </File>
           </Files>
         </Group>

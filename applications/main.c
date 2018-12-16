@@ -12,7 +12,7 @@
  * 2015-07-29     Arda.Fu      first implementation
  */
 #include <rtthread.h>
-
+#include <led.h>
 
 #define THREAD_PRIORITY         25
 #define THREAD_STACK_SIZE       512
@@ -22,30 +22,36 @@
 static rt_thread_t tid1 = RT_NULL;
 
 /* 线程入口 */
-static void print_th_entry(void* parameter)
+static void led_th_entry(void* parameter)
 {
-    rt_uint32_t count = 0;
-    rt_uint32_t no = (rt_uint32_t) parameter; /* 获得线程的入口参数 */
-
+   
+	rt_pin_mode(LED0,PIN_MODE_OUTPUT);
     while (1)
     {
-        /* 打印线程计数值输出 */
-        rt_kprintf("thread%d count: %d\n", no, count ++);
-
-        /* 休眠10个OS Tick */
-        rt_thread_delay(100);
+		rt_pin_write(LED0,PIN_LOW);
+        rt_thread_delay(rt_tick_from_millisecond(500));
+		rt_pin_write(LED0,PIN_HIGH);
+       
+        rt_thread_delay(rt_tick_from_millisecond(500));
     }
 }
+
+
 
 /* 用户应用入口 */
 int mine_rt_application_init()
 {
     /* 创建线程1 */
-    tid1 = rt_thread_create("print task",
-        print_th_entry, (void*)1, /* 线程入口是thread_entry, 入口参数是1 */
-        THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
-    if (tid1 != RT_NULL)
-        rt_thread_startup(tid1);
+    tid1 =	rt_thread_create(
+			"led task",//线程名称
+			led_th_entry, //入口函数
+			(void*)1, //入口函数参数
+			THREAD_STACK_SIZE, //线程栈大小，单位：字节（需要向四字节地址对齐）
+			THREAD_PRIORITY,//优先级 
+			THREAD_TIMESLICE//线程的时间片大小
+			);
+    if (tid1 != RT_NULL)//成功后返回线程句柄；否则返回RT_NULL
+        rt_thread_startup(tid1);//将任务添加到就绪列表中
     else
         return -1;
     return 0;
